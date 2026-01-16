@@ -6,9 +6,9 @@ interface FetchState<T> {
     error: Error | null;
 };
 
-function useFetch<T>(url: string): FetchState<T> {
+function useFetch<T>(url?: string): FetchState<T> {
     const [data, setData] = useState<T | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<Error | null>(null);
 
     useEffect(() => {
@@ -17,6 +17,7 @@ function useFetch<T>(url: string): FetchState<T> {
         const controller = new AbortController();
         setLoading(true);
         setError(null);
+        setData(null);
 
         const fetchData = async () => {
             try {
